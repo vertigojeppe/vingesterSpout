@@ -29,6 +29,7 @@ const FFmpeg      = require("@rse/ffmpeg")
 const Browser     = require("./vingester-browser.js")
 const Update      = require("./vingester-update.js")
 const util        = require("./vingester-util.js")
+const Spout       = require("./vingester-spout.js")
 const log         = require("./vingester-log.js").scope("main")
 const pkg         = require("./package.json")
 
@@ -56,7 +57,8 @@ const version = {
 }
 const support = {
     ndi:       grandiose.isSupportedCPU(),
-    srt:       FFmpeg.info.protocols?.srt?.input === true
+    srt:       FFmpeg.info.protocols?.srt?.input === true,
+    spout:     Spout.available()
 }
 electron.ipcMain.handle("version", (ev) => { return version })
 electron.ipcMain.handle("support", (ev) => { return support })
@@ -68,6 +70,7 @@ log.info(`using Node.js: ${version.node}`)
 log.info(`using NDI: ${version.ndi} (supported by CPU: ${support.ndi ? "yes" : "no"})`)
 log.info(`using FFmpeg: ${version.ffmpeg}`)
 log.info(`using Vue: ${version.vuejs}`)
+log.info(`using Spout: supported: ${support.spout ? "yes" : "no"}`)
 
 /*  support particular profiles  */
 if (electron.app.commandLine.hasSwitch("profile")) {
@@ -365,6 +368,8 @@ electron.app.on("ready", async () => {
         { iname: "R", itype: "string",  def: "vbr",         etype: "string",  ename: "Output2SinkFFmpegMode" },
         { iname: "F", itype: "string",  def: "matroska",    etype: "string",  ename: "Output2SinkFFmpegFormat" },
         { iname: "M", itype: "string",  def: "",            etype: "string",  ename: "Output2SinkFFmpegOptions" },
+        { iname: "s", itype: "boolean", def: false,         etype: "boolean", ename: "Output2SinkSpoutEnabled" },
+        { iname: "b", itype: "string",  def: "",            etype: "string",  ename: "Output2SinkSpoutName" },
         { iname: "P", itype: "boolean", def: false,         etype: "boolean", ename: "PreviewEnabled" },
         { iname: "T", itype: "boolean", def: false,         etype: "boolean", ename: "ConsoleEnabled" },
         { iname: "E", itype: "boolean", def: false,         etype: "boolean", ename: "DevToolsEnabled" },

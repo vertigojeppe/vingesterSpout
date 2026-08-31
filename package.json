@@ -14,6 +14,7 @@
     },
     "devDependencies": {
         "electron":                      "18.0.4",
+        "cmake-js":                      "7.2.1",
         "electron-builder":              "23.0.3",
         "electron-notarize":             "1.2.1",
         "cross-env":                     "7.0.3",
@@ -68,6 +69,9 @@
         "@hapi/boom":                    "9.1.4",
         "hapi-plugin-header":            "1.1.4"
     },
+    "optionalDependencies": {
+        "electron-spout":                "reitowo/electron-spout#4de6b5e"
+    },
     "main":                              "vingester-main.js",
     "upd":                               [ "!execa", "!got", "!dsig" ],
     "build": {
@@ -76,7 +80,8 @@
         "asar":                          true,
         "asarUnpack":                    [ "node_modules/@rse/ffmpeg/**",
                                            "node_modules/grandiose/**",
-                                           "node_modules/@discordjs/opus/**" ],
+                                           "node_modules/@discordjs/opus/**",
+                                           "node_modules/electron-spout/**" ],
         "removePackageScripts":          true,
         "compression":                   "normal",
         "directories": {
@@ -154,7 +159,7 @@
         }
     },
     "scripts": {
-        "postinstall":                   "patch-package --patch-dir package.d && electron-builder install-app-deps",
+        "postinstall":                   "patch-package --patch-dir package.d && electron-builder install-app-deps && node vingester-spout-build.js",
         "lint":                          "eslint --config etc-eslint.yaml --ext js *.js && stylelint --config etc-stylelint.yaml *.css && htmllint --rc etc-htmllint.json *.html",
         "start":                         "cross-env DEBUG=1 nodemon --exec \"npx electron --trace-warnings .\" --watch . --ext html,yaml,css,js",
         "start-debug":                   "cross-env DEBUG=2 nodemon --exec \"npx electron --inspect --trace-warnings .\"  --watch . --ext html,yaml,css,js",

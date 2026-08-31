@@ -1,0 +1,15 @@
+diff --git a/node_modules/electron-spout/CMakeLists.txt b/node_modules/electron-spout/CMakeLists.txt
+index 671072f..4a870e4 100644
+--- a/node_modules/electron-spout/CMakeLists.txt
++++ b/node_modules/electron-spout/CMakeLists.txt
+@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD 17)
+ include_directories(${CMAKE_JS_INC})
+
+ add_library(electron_spout SHARED main.cpp spout_output.cpp spout_output.h ${CMAKE_JS_SRC})
+-set_target_properties(electron_spout PROPERTIES PREFIX "" SUFFIX ".node" OUTPUT_NAME "electron-spout")
++set_target_properties(electron_spout PROPERTIES
++        PREFIX "" SUFFIX ".node" OUTPUT_NAME "electron-spout"
++        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+ target_link_libraries(electron_spout PRIVATE ${CMAKE_JS_LIB} delayimp.lib dxgi.lib dxguid.lib)
+
+ find_package(Spout2 CONFIG REQUIRED)

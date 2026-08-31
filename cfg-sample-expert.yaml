@@ -42,6 +42,8 @@
     Output2SinkFFmpegMode:         "vbr"
     Output2SinkFFmpegFormat:       "matroska"
     Output2SinkFFmpegOptions:      "the-expert-1.mkv"
+    Output2SinkSpoutEnabled:       false
+    Output2SinkSpoutName:          ""
     PreviewEnabled:                false
     ConsoleEnabled:                false
     DevToolsEnabled:               false
@@ -84,6 +86,8 @@
     Output2SinkFFmpegMode:         "vbr"
     Output2SinkFFmpegFormat:       "matroska"
     Output2SinkFFmpegOptions:      "the-expert-2.mkv"
+    Output2SinkSpoutEnabled:       false
+    Output2SinkSpoutName:          ""
     PreviewEnabled:                false
     ConsoleEnabled:                false
     DevToolsEnabled:               false
@@ -126,6 +130,8 @@
     Output2SinkFFmpegMode:         "vbr"
     Output2SinkFFmpegFormat:       "matroska"
     Output2SinkFFmpegOptions:      "the-expert-3.mkv"
+    Output2SinkSpoutEnabled:       false
+    Output2SinkSpoutName:          ""
     PreviewEnabled:                false
     ConsoleEnabled:                false
     DevToolsEnabled:               false
@@ -168,6 +174,8 @@
     Output2SinkFFmpegMode:         "vbr"
     Output2SinkFFmpegFormat:       "matroska"
     Output2SinkFFmpegOptions:      "the-expert-4.mkv"
+    Output2SinkSpoutEnabled:       false
+    Output2SinkSpoutName:          ""
     PreviewEnabled:                false
     ConsoleEnabled:                false
     DevToolsEnabled:               false
@@ -210,6 +218,8 @@
     Output2SinkFFmpegMode:         "vbr"
     Output2SinkFFmpegFormat:       "matroska"
     Output2SinkFFmpegOptions:      "the-expert-5.mkv"
+    Output2SinkSpoutEnabled:       false
+    Output2SinkSpoutName:          ""
     PreviewEnabled:                false
     ConsoleEnabled:                false
     DevToolsEnabled:               false

@@ -7,6 +7,7 @@ reverse chronological order (newer first), grouped by the release
 versions and prefixed with the kind of change.
 
 - 3.0.0
+    - IMPROVEMENT: add Spout output sink (Windows only), in addition to the existing NDI and FFmpeg sinks
     - IMPROVEMENT: add HTTP API for remote start/reload/stop of all browsers or a particular browser
     - UPGRADE: upgrade to Electron 18.0.4
     - UPGRADE: upgrade to Electron-Builder 23.0.3

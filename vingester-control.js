@@ -36,7 +36,8 @@ const browserFields = [
     { name: "O", def: "0",           valid: /^\d+$/ },
     { name: "C", def: "2",           valid: /^\d+$/ },
     { name: "o", def: "0",           valid: /^\d+$/ },
-    { name: "M", def: "",            valid: /^.*$/ }
+    { name: "M", def: "",            valid: /^.*$/ },
+    { name: "b", def: "",            valid: /^.*$/ }
 ]
 
 const app = Vue.createApp({
@@ -333,7 +334,7 @@ const app = Vue.createApp({
             if (browser.d >= this.displays.length)
                 browser.d = (this.displays.length - 1)
             if (   (browser.D || browser.N)
-                && (!browser.N || (browser.N && (browser.n || browser.m)))
+                && (!browser.N || (browser.N && (browser.n || browser.m || browser.s)))
                 && browser.t !== "" && browser.u !== "")
                 delete this.invalid[browser.id].GLOBAL
             else

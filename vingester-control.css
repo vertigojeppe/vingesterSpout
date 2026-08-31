@@ -1171,6 +1171,9 @@ body {
             &.field-ffmpeg-args > input {
                 width: 262px;
             }
+            &.field-spout-name > input {
+                width: 262px;
+            }
             &.field-framerate > input {
                 width: 40px;
                 text-align: center;

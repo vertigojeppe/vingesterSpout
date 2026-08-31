@@ -17,6 +17,7 @@ const Opus             = require("@discordjs/opus")
 /*  require own modules  */
 const util             = require("./vingester-util.js")
 const FFmpeg           = require("./vingester-ffmpeg.js")
+const Spout            = require("./vingester-spout.js")
 const vingesterLog     = require("./vingester-log.js")
 
 /*  parse passed-through browser configuration  */
@@ -43,6 +44,7 @@ class BrowserWorker {
         this.ndiSender       = null
         this.ndiTimer        = null
         this.ffmpeg          = null
+        this.spout           = null
         this.opusEncoder     = null
         this.burst1          = null
         this.burst2          = null
@@ -123,6 +125,20 @@ class BrowserWorker {
                 })
                 await this.ffmpeg.start()
             }
+            if (this.cfg.s) {
+                this.spout = new Spout({
+                    name: this.cfg.b || title,
+                    log: (level, msg) => {
+                        this.log[level](msg)
+                    }
+                })
+                this.spout.on("fatal", (msg) => {
+                    this.log.error(`Spout fatal error: ${msg}`)
+                    electron.ipcRenderer.sendTo(this.cfg.controlId, "message",
+                        `Spout fatal error: ${msg}`)
+                })
+                await this.spout.start()
+            }
         }
         this.burst1   = new util.WeightedAverage(this.cfg.f * 2, this.cfg.f)
         if (this.cfg.f > 0)
@@ -179,6 +195,10 @@ class BrowserWorker {
         if (this.ffmpeg !== null)
             await this.ffmpeg.stop()
 
+        /*  destroy Spout sender  */
+        if (this.spout !== null)
+            await this.spout.stop()
+
         this.log.info("stopped")
     }
 
@@ -226,6 +246,12 @@ class BrowserWorker {
 
         /*  send video frame  */
         if (this.cfg.N) {
+            if (this.cfg.s) {
+                /*  send the Spout frame first: the NDI sink below mutates the
+                    buffer in place (BGRAtoBGRX) when alpha is disabled, so any
+                    sink reading the buffer after that point loses its alpha  */
+                this.spout.video(buffer, size)
+            }
             if (this.cfg.n) {
                 /*  convert from ARGB (Electron/Chromium on big endian CPU)
                     to BGRA (supported input of NDI SDK). On little endian

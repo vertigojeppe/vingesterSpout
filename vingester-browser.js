@@ -151,7 +151,7 @@ module.exports = class Browser {
     valid () {
         return (
             (this.cfg.D || this.cfg.N)
-            && (!this.cfg.N || (this.cfg.N && (this.cfg.n || this.cfg.m)))
+            && (!this.cfg.N || (this.cfg.N && (this.cfg.n || this.cfg.m || this.cfg.s)))
             && this.cfg.t !== ""
             && this.cfg.u !== ""
         )
