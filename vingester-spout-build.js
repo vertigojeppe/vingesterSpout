@@ -11,7 +11,6 @@
 
 const path = require("path")
 const fs   = require("fs")
-const os   = require("os")
 const cp   = require("child_process")
 
 const log = (msg) => console.log(`vingester-spout-build: ${msg}`)
@@ -38,7 +37,7 @@ const main = () => {
     const electronVersion = pkg.devDependencies.electron
 
     /*  reuse an existing vcpkg checkout (VCPKG_ROOT) or bootstrap a local one  */
-    const vcpkgRoot = process.env.VCPKG_ROOT || path.join(os.homedir(), "repos", "vcpkg")
+    const vcpkgRoot = process.env.VCPKG_ROOT || "C:\\dev\\vcpkg"
     const vcpkgExe  = path.join(vcpkgRoot, "vcpkg.exe")
     if (!fs.existsSync(vcpkgExe)) {
         log(`bootstrapping vcpkg into ${vcpkgRoot} (this fetches and builds Spout2 from source -- can take a few minutes)`)
